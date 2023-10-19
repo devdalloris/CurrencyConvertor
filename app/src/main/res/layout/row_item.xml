@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/icon_currency"
+        android:layout_width="40dp"
+        android:src="@drawable/ad"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"/>
+    <TextView
+        android:id="@+id/txt_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UZS"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginEnd="30dp"/>
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/txt_country_currency"
+        android:layout_width="wrap_content"
+        android:text="Uzbekistan sum"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
