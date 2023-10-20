@@ -42,13 +42,13 @@ class CurrencyListFragment : Fragment(R.layout.fragment_currency_list) {
 
                 rvCurrencyListAdapter!!.setOnCurrencyClickedListener {
 
-                    val convertCurrencyScreenFragment = ConvertCurrencyScreenFragment()
+                    val editAmountFragment = EditAmountFragment()
                     val bundle = Bundle()
                     bundle.putString("Ccy", body?.get(it)?.Ccy)
                     bundle.putString("Rate", body?.get(it)?.Rate)
-                    convertCurrencyScreenFragment.arguments = bundle
+                    editAmountFragment.arguments = bundle
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, convertCurrencyScreenFragment).commit()
+                        .replace(R.id.fragment_container, editAmountFragment).commit()
 
                 }
             }

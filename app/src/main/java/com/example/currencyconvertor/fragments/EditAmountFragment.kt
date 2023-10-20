@@ -3,6 +3,7 @@ package com.example.currencyconvertor.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.currencyconvertor.R
 import com.example.currencyconvertor.databinding.FragmentEditAmountBinding
@@ -16,11 +17,15 @@ class EditAmountFragment : Fragment(R.layout.fragment_edit_amount) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditAmountBinding.bind(view)
-
+        val bundle = arguments
+        if(bundle!=null){
+            binding.textEqual.text="1 UZS = ${bundle.getString("Rate")} ${bundle.getString("Ccy")}"
+            binding.txtCcy.text=bundle.getString("Ccy")
+        }
 
         binding.txtTitle.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ConvertCurrencyScreenFragment()).commit()
+                .replace(R.id.fragment_container, CurrencyListFragment()).commit()
         }
 
         binding.btnDot.setOnClickListener {
@@ -65,25 +70,6 @@ class EditAmountFragment : Fragment(R.layout.fragment_edit_amount) {
         binding.btnConvert.setOnClickListener {
             onConvertClicked(binding.btnConvert)
         }
-
-        /*     val apiClient = ApiClient()
-             val apiService = apiClient.getRetrofit().create(ApiService::class.java)
-
-             apiService.getAllCurrency().enqueue(object : Callback<List<Currency>> {
-                 override fun onResponse(
-                     call: Call<List<Currency>>,
-                     response: Response<List<Currency>>,
-                 ) {
-                    val body = response.body()
-
-                 }
-
-                 override fun onFailure(call: Call<List<Currency>>, t: Throwable) {
-                     t.printStackTrace()
-                 }
-             })
-             */
-
 
     }
     private fun onNumberClicked(view: View) {
@@ -159,9 +145,12 @@ class EditAmountFragment : Fragment(R.layout.fragment_edit_amount) {
             var value=binding.etQuantity.text.toString()
             value1=value.toDouble()
         }
-        finalResult=value1
+        val bundle = arguments
+        if(bundle!=null){
+            finalResult=value1*bundle.getString("Rate")!!.toDouble()
+            binding.textQuantity.text="${value1} ${bundle.getString("Ccy")} = "+ String.format("%.3f",finalResult) +" UZS"
+        }
 
-        binding.textQuantity.text=finalResult.toString()
 
     }
     override fun onDestroyView() {

@@ -21,26 +21,12 @@ class ConvertCurrencyScreenFragment : Fragment(R.layout.fragment_convert_currenc
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentConvertCurrencyScreenBinding.bind(view)
 
-        val apiClient = ApiClient()
-        val apiService = apiClient.getRetrofit().create(ApiService::class.java)
-
-        apiService.getAllCurrency().enqueue(object : Callback<List<Currency>> {
-            override fun onResponse(
-                call: Call<List<Currency>>,
-                response: Response<List<Currency>>,
-            ) {
                 val bundle = arguments
                 if (bundle != null) {
                     binding.txtCurrencyCcy1.text = bundle.getString("Ccy")
                     binding.txtCurrency2.text = bundle.getString("Rate")
                 }
-            }
-
-            override fun onFailure(call: Call<List<Currency>>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-        })
+      
 
         binding.txtTitle.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -48,8 +34,13 @@ class ConvertCurrencyScreenFragment : Fragment(R.layout.fragment_convert_currenc
         }
 
         binding.iconConvert.setOnClickListener {
-
-            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, EditAmountFragment()).commit()
+            var bundle1 = Bundle()
+            val editAmountFragment = EditAmountFragment()
+            if (bundle != null) {
+                bundle1.putString("Rate", bundle.getString("Rate"))
+            }
+            editAmountFragment.arguments=bundle1
+            parentFragmentManager.beginTransaction().replace(R.id.fragment_container, editAmountFragment).commit()
         }
 
     }
